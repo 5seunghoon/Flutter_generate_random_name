@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:english_words/english_words.dart';
+import 'dart:async';
 
 void main() => runApp(MyApp());
+
+WordPair get generateSingleWordPair => generateWordPairs().take(1).toList()[0];
+
+final suggestions = <WordPair>[];
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -11,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primaryColor: Colors.black,
+        primaryColor: Colors.white,
       ),
       home: RandomWords(), //여기에는 위젯이 들어간다. 이 위젯이 관찰할 상태는 State 에 따라 달라진다.
     );
@@ -33,9 +38,11 @@ class RandomWords extends StatefulWidget {
 }
 
 class RandomWordsState extends State<RandomWords> {
-  final _suggestions = <WordPair>[];
   final _saved = Set<WordPair>();
   final _biggerFont = const TextStyle(fontSize: 18, letterSpacing: 6);
+
+  final Stream<WordPair> _timeStream =
+      Stream.periodic(Duration(seconds: 3), (var i) => generateSingleWordPair);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +54,7 @@ class RandomWordsState extends State<RandomWords> {
           IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
         ],
       ),
-      body: _buildSuggestions(),
+      body: Column(children: <Widget>[_buildSuggestions()]),
     );
   }
 
@@ -68,18 +75,25 @@ class RandomWordsState extends State<RandomWords> {
     }));
   }
 
-  Widget _buildSuggestions() {
-    return Scrollbar(
-      child: ListView.builder(
-        itemCount: 30,
-        padding: const EdgeInsets.all(16.0),
-        itemBuilder: (context, i) {
-          if (i.isOdd) return Divider();
-          final index = i ~/ 2;
-          if (index >= _suggestions.length) {
-            _suggestions.addAll(generateWordPairs().take(10));
-          }
-          return _buildRow(_suggestions[index]);
+  Flexible _buildSuggestions() {
+    return Flexible(
+      child: StreamBuilder(
+        stream: _timeStream,
+        initialData: generateSingleWordPair,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          suggestions.add(snapshot.data);
+          print("builder add : ${snapshot.data}");
+          return Scrollbar(
+            child: ListView.builder(
+              itemCount: suggestions.length*2,
+              padding: const EdgeInsets.all(16.0),
+              itemBuilder: (context, i) {
+                if (i.isOdd) return Divider();
+                final index = i ~/ 2;
+                return _buildRow(suggestions[index]);
+              },
+            ),
+          );
         },
       ),
     );
