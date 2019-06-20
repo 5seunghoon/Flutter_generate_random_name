@@ -11,7 +11,7 @@ And you can also click favorite icon.
 
 Also I use 'english_words.dart' and stream.dart
 
-It has some explanation about this app (Korean) : ...writing....
+It has some explanation about this app (Korean) : https://deque.tistory.com/130
 
 
 ### GIF
@@ -26,4 +26,4 @@ It has some explanation about this app (Korean) : ...writing....
 
 Dart의 Stream과 ListView의 기본 사양등을 활용합니다.
 
-블로그에 설명이 있습니다 : ...쓰는중...
+블로그에 설명이 있습니다 : https://deque.tistory.com/130
