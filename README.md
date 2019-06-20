@@ -1,16 +1,26 @@
-# flutter_rand_name_app
+# Flutter generate random name application
 
-The new app generating random name.
+The app generating random name.
 
-## Getting Started
+It is improve version of google code lab sample. (https://codelabs.developers.google.com/codelabs/first-flutter-app-pt2/#8)
 
-This project is a starting point for a Flutter application.
+It has some explanation about this app (Korean) : ...writing....
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### GIF
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+![gif](https://user-images.githubusercontent.com/26534434/59853413-c8db0b80-93ab-11e9-857b-b82bae6b42ff.gif)
+
+### About this simple app...
+
+This app will generate random string per 2 seconds.
+And you can also click favorite icon.
+This app use 'english_words.dart' and stream.dart
+
+### KR
+
+2초마다 한 번 씩 랜덤한 String을 만드는 샘플 앱입니다.
+하트를 눌릴 수 있습니다.
+Dart의 Stream과 ListView의 기본 사양등을 활용합니다.
+
+블로그에 설명이 있습니다 : ...쓰는중...
