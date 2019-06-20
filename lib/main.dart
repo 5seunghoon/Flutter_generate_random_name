@@ -41,21 +41,27 @@ class RandomWordsState extends State<RandomWords> {
   final _saved = Set<WordPair>();
   final _biggerFont = const TextStyle(fontSize: 18, letterSpacing: 6);
 
-  final Stream<WordPair> _timeStream =
-      Stream.periodic(Duration(seconds: 3), (var i) => generateSingleWordPair);
+  final Stream<List<WordPair>> _timeStreamImprove =
+      Stream.periodic(Duration(seconds: 2), (var i) {
+        suggestions.add(generateSingleWordPair);
+        return suggestions;
+      });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Rand name generator"),
-        actions: <Widget>[
-          // Add 3 lines from here...
-          IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
-        ],
-      ),
-      body: Column(children: <Widget>[_buildSuggestions()]),
-    );
+        appBar: AppBar(
+          title: Text("Rand name generator"),
+          actions: <Widget>[
+            // Add 3 lines from here...
+            IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
+          ],
+        ),
+        body: Column(
+          children: [
+            _buildSuggestions(),
+          ],
+        ));
   }
 
   void _pushSaved() {
@@ -63,14 +69,15 @@ class RandomWordsState extends State<RandomWords> {
         .push(MaterialPageRoute<void>(builder: (BuildContext build) {
       final tiles = _saved.map((var pair) =>
           ListTile(title: Text(pair.asPascalCase, style: _biggerFont)));
-      final List<Widget> divided =
-          ListTile.divideTiles(context: context, tiles: tiles).toList();
+
+      final List<Card> cards = tiles.map((var tile) => Card(child: tile,)).toList();
 
       return Scaffold(
         appBar: AppBar(
           title: Text("Saved Names"),
         ),
-        body: ListView(children: divided),
+        //body: ListView(children: divided),
+        body: Column(children: cards,),
       );
     }));
   }
@@ -78,14 +85,18 @@ class RandomWordsState extends State<RandomWords> {
   Flexible _buildSuggestions() {
     return Flexible(
       child: StreamBuilder(
-        stream: _timeStream,
-        initialData: generateSingleWordPair,
+        stream: _timeStreamImprove,
+        initialData: <WordPair>[generateSingleWordPair],
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          suggestions.add(snapshot.data);
-          print("builder add : ${snapshot.data}");
+
+          suggestions.forEach((var f) {
+            print("s : " + f.asPascalCase);
+          });
+          print("${snapshot.data.runtimeType}");
+
           return Scrollbar(
             child: ListView.builder(
-              itemCount: suggestions.length*2,
+              itemCount: suggestions.length * 2,
               padding: const EdgeInsets.all(16.0),
               itemBuilder: (context, i) {
                 if (i.isOdd) return Divider();
@@ -101,8 +112,7 @@ class RandomWordsState extends State<RandomWords> {
 
   Widget _buildRow(WordPair pair) {
     final alreadySaved = _saved.contains(pair);
-    return ListTile(
-      title: Text(pair.asPascalCase, style: _biggerFont),
+    return ListTile( title: Text(pair.asPascalCase, style: _biggerFont),
       trailing: Icon(
         alreadySaved ? Icons.favorite : Icons.favorite_border,
         color: alreadySaved ? Colors.red : Colors.black,
