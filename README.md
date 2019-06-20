@@ -21,7 +21,9 @@ It has some explanation about this app (Korean) : ...writing....
 ### KR
 
 2초마다 한 번 씩 랜덤한 String을 만드는 샘플 앱입니다.
+
 하트를 눌릴 수 있습니다.
+
 Dart의 Stream과 ListView의 기본 사양등을 활용합니다.
 
 블로그에 설명이 있습니다 : ...쓰는중...
