@@ -1,8 +1,15 @@
 # Flutter generate random name application
 
-The app generating random name.
 
-It is improve version of google code lab sample. (https://codelabs.developers.google.com/codelabs/first-flutter-app-pt2/#8)
+### About this simple app...
+
+This app is improve version of google code lab sample. (https://codelabs.developers.google.com/codelabs/first-flutter-app-pt2/#8)
+
+App will generate random string per 2 seconds.
+
+And you can also click favorite icon.
+
+Also I use 'english_words.dart' and stream.dart
 
 It has some explanation about this app (Korean) : ...writing....
 
@@ -10,12 +17,6 @@ It has some explanation about this app (Korean) : ...writing....
 ### GIF
 
 ![gif](https://user-images.githubusercontent.com/26534434/59853413-c8db0b80-93ab-11e9-857b-b82bae6b42ff.gif)
-
-### About this simple app...
-
-This app will generate random string per 2 seconds.
-And you can also click favorite icon.
-This app use 'english_words.dart' and stream.dart
 
 ### KR
 
