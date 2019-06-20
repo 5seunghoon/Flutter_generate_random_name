@@ -20,7 +20,7 @@ It has some explanation about this app (Korean) : ...writing....
 
 ### KR
 
-2초마다 한 번 씩 랜덤한 String을 만드는 샘플 앱입니다.
+2초마다 한 번씩 랜덤한 String을 만드는 샘플 앱입니다.
 
 하트를 눌릴 수 있습니다.
 
